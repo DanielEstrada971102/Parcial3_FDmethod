@@ -18,23 +18,27 @@ class FiniteDiff
 		void setQ(double (*)(double));
 		void setR(double (*)(double));
 		void solve(double *, double *);
-
-	private:
-		int n=0;
-		double h;
-		double a = 0, b = 1;
-		double alpha, beta;
-		double (*p)(double);
-		double (*q)(double);
-		double (*r)(double);
 		vector< double > A; 
 		vector< double > C;
 		vector< double > D;
 		vector< double > B; 
 
+	private:
+		int n=0;
+		double h;
+		double a = 0;
+		double b = 1;
+		double alpha;
+		double beta;
+
+		double (*p)(double);
+		double (*q)(double);
+		double (*r)(double);
+
+
 		void setH(void);
-		void calcule_EqSys(void);
-		void croutFactorization(double *, double *);
+		void calcule_EqSys(double *);
+		void croutFactorization(double *);
 };
 
 #endif

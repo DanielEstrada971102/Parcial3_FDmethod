@@ -1,5 +1,6 @@
 #include "fd_method.h"
 #include <iostream>
+#include <cmath>
 
 
 double p(double);
@@ -8,33 +9,31 @@ double r(double);
 
 int main(int argc, char const *argv[]){
 	
-	int N = 100;
+	int N = 9;
 	double x[N+1], w[N+1];
 	FiniteDiff EDproblem(N);
 
-	EDproblem.setInterval(0.0, 5.0);
-	EDproblem.setBoundaryCond(1.0, 27.8);
+	EDproblem.setInterval(1, 2.0);
+	EDproblem.setBoundaryCond(1.0, 2.0);
 	EDproblem.setP(p);
 	EDproblem.setQ(q);
 	EDproblem.setR(r);
 
-	EDproblem.solve(x, w);
+	EDproblem.solve(x, w);	
+
 
 	return 0;
 }
 
 
 double p(double x){
-	/* your code here */ 
-	return 0;
+	return -2.0 / x;
 }
 
 double q(double x){
-	/* your code here */ 
-	return 0;
+	return 2.0 / (x*x);
 }
 
 double r(double x){
-	/* your code here */ 
-	return 0;	
+	return sin(log(x)) / (x*x);	
 }
