@@ -41,7 +41,7 @@ class FiniteDiff
 
 		void setH(void);
 		void calcule_EqSys(double *);
-		void croutFactorization(double *, double *);
+		void croutFactorization(double *);
 };
 
 #endif
