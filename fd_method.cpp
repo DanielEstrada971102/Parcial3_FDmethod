@@ -63,5 +63,27 @@ void FiniteDiff::calcule_EqSys(double *x){
 }
 
 void FiniteDiff::croutFactorization(double *w){
-	/*your code here*/
+	int i;
+	
+
+	L[1] = A[1];
+	U[1] = B[1] / A[1];	
+	Z[1] = D[1] / L[1];
+
+	for (i = 2; i <= n-1 ; i++){
+		L.push_back( A[i] - C[i] * U[i-1]);
+		U.push_back( B[i] / L[i]);
+		Z.push_back(( D[i] - C[i] * Z[i-1]) / L[i] );	
+	}
+	
+	L.push_back( A[n] - C[n] * U[n-1]);
+	Z.push_back(( D[n] - C[n] * Z[n-1]) / L[n]);
+	
+	w[0] = alpha;
+	w[n] = Z[n];
+	w[n+1] = beta;
+	
+	for (i = n-1; i >= 1 ; i--){
+		w[i] = Z[i] - U[i] * w[i+1];	
+	}
 }
