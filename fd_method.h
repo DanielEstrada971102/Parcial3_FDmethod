@@ -18,13 +18,6 @@ class FiniteDiff
 		void setQ(double (*)(double));
 		void setR(double (*)(double));
 		void solve(double *, double *);
-		vector< double > A; 
-		vector< double > C;
-		vector< double > D;
-		vector< double > B;
-		vector< double > L;
-		vector< double > U;
-		vector< double > Z;
 
 	private:
 		int n=0;
@@ -38,6 +31,10 @@ class FiniteDiff
 		double (*q)(double);
 		double (*r)(double);
 
+		vector< double > A; 
+		vector< double > C;
+		vector< double > D;
+		vector< double > B;
 
 		void setH(void);
 		void calcule_EqSys(double *);

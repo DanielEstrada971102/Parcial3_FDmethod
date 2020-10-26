@@ -10,16 +10,19 @@ double r(double);
 int main(int argc, char const *argv[]){
 	
 	int N = 9;
-	double x[N+1], w[N+1];
+	double x[N+1]; 
+	double w[N+1];
 	FiniteDiff EDproblem(N);
 
-	EDproblem.setInterval(1, 2.0);
+	EDproblem.setInterval(1.0, 2.0);
 	EDproblem.setBoundaryCond(1.0, 2.0);
 	EDproblem.setP(p);
 	EDproblem.setQ(q);
 	EDproblem.setR(r);
 
 	EDproblem.solve(x, w);	
+
+	for (int i = 0; i <= N+1; i++) cout << x[i] << "    " << w[i] << endl;
 
 
 	return 0;
