@@ -21,7 +21,10 @@ class FiniteDiff
 		vector< double > A; 
 		vector< double > C;
 		vector< double > D;
-		vector< double > B; 
+		vector< double > B;
+		vector< double > L;
+		vector< double > U;
+		vector< double > Z;
 
 	private:
 		int n=0;
@@ -38,7 +41,7 @@ class FiniteDiff
 
 		void setH(void);
 		void calcule_EqSys(double *);
-		void croutFactorization(double *);
+		void croutFactorization(double *, double *);
 };
 
 #endif
