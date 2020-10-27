@@ -14,68 +14,75 @@ FiniteDiff::FiniteDiff(int N){
 }
 
 void FiniteDiff::setH(){
-	h = (b - a) / (n + 1);
+	// Se define el tamano del paso
+	h = double ((b - a) / (n + 1));
 }
 
 void FiniteDiff::setInterval(double xmin, double xmax){
+	// intervalo de integracion
 	a = xmin;
 	b = xmax;
 	setH();
 }
 
 void FiniteDiff::setBoundaryCond(double ymin, double ymax){
+	// condiciones de frontera
 	alpha = ymin;
 	beta = ymax;
 }
 
 void FiniteDiff::setP(double (*function)(double)){
+	// funcion que acompana la primera derivada en la ED
 	p = function;
 }
 
 void FiniteDiff::setQ(double (*function)(double)){
+	// funcion que acompana la derivada de orden cero en la ED
 	q = function;
 }
 
 void FiniteDiff::setR(double (*function)(double)){
+	// funcion que no va a acompanada de y en la ED
 	r = function;
 }
 
 void FiniteDiff::solve(double *x, double *w){
-	calcule_EqSys(x);
+	calcule_EqSys(x);  // linealiza las ecuaciones en un sistema matricial N+1 x N+1
 	//cout << x[0] << endl;
-	croutFactorization(w);
+	croutFactorization(w);  // resuelve el sistema tridiagonal
 	//cout << x[0] << endl;
 }
 
 void FiniteDiff::calcule_EqSys(double *x){
-	int i;
+	// funcion que crea los elementos de matriz linealizando el problema
 	x[0] = a;
+
 	// ------ step 1 -----------------
 	x[1] = a + h;
-
-	A.push_back( 2  + h*h * q(x[1]));
-	B.push_back( -1  + .5 * h * p(x[1]));	
-	D.push_back( - h*h * r(x[1]) + ((1 + .5 * h) * p(x[1])) * alpha );
+	A.push_back( 2  + h*h * q(x[1]));  // A[1]
+	B.push_back( -1  + 0.5 * h * p(x[1]));	// B[1]
+	D.push_back( -1 * h*h * r(x[1]) + (1 + 0.5 * h * p(x[1])) * alpha );  // D[1]
 	
 	// ------ step 2 -----------------
-	for (i = 2; i <= n-1 ; i++){
+	for (int i = 2; i <= n-1 ; i++){
 		x[i] = a + i * h;
-		A.push_back( 2  + h*h * q(x[i]));
-		B.push_back( -1  + .5 * h * p(x[i]));
-		C.push_back( -1  - .5 * h * p(x[i]));	
-		D.push_back( - h*h * r(x[i]) );
+		A.push_back( 2  + h*h * q(x[i]));  // empieza en A[2]
+		B.push_back( -1  + 0.5 * h * p(x[i]));  // empieza en B[2]
+		C.push_back( -1  - 0.5 * h * p(x[i]));	// empieza en C[1] - termina en C[n-2]
+		D.push_back( - h*h * r(x[i]));  // empieza en D[2] - termina en D[n-1]
 	}
 	
 	// ------ step 3 -----------------
 	x[n] = b - h;
-	A.push_back( 2  + h*h * q(x[n]));
-	C.push_back( -1  + .5 * h * p(x[n]));	
-	B.push_back( - h*h * r(x[n]) + ((1 - .5 * h) * p(x[n])) * beta );	
+	A.push_back( 2  + h*h * q(x[n]));  // A[n]
+	C.push_back( -1  - 0.5 * h * p(x[n]));  // C[n-1]
+	B.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // B[n]
 	x[n+1] = b;
 }
 
 
 void FiniteDiff::croutFactorization(double *w){
+	// resuelve un sistema lineal tridiagonal
 	int i;
 	double L[n+1];
 	double U[n+1];
@@ -91,6 +98,7 @@ void FiniteDiff::croutFactorization(double *w){
 		U[i] =  B[i] / L[i];
 		Z[i] = ( D[i] - C[i] * Z[i-1]) / L[i] ;	
 	}
+
 	// ------ step 6 -----------------
 	L[n] = A[n] - C[n] * U[n-1];
 	Z[n] = ( D[n] - C[n] * Z[n-1]) / L[n];
@@ -102,6 +110,6 @@ void FiniteDiff::croutFactorization(double *w){
 	
 	// ------ step 8 -----------------
 	for (i = n-1; i >= 1 ; i--){
-		w[i] = Z[i] - U[i] * w[i+1];	
+		w[i] = Z[i] - U[i] * w[i+1];
 	}
 }
