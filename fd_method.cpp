@@ -76,7 +76,7 @@ void FiniteDiff::calcule_EqSys(double *x){
 	x[n] = b - h;
 	A.push_back( 2  + h*h * q(x[n]));  // A[n]
 	C.push_back( -1  - 0.5 * h * p(x[n]));  // C[n-1]
-	B.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // B[n]
+	D.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // D[n]
 	x[n+1] = b;
 }
 
