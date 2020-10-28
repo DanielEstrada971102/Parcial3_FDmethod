@@ -8,6 +8,8 @@ using namespace std;
 
 class FiniteDiff
 {
+	friend void chequear_funciones();
+
 	public:
 		FiniteDiff(int N);
 
