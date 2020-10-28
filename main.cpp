@@ -1,6 +1,7 @@
 #include <fd_method.h>  // se define la clase FiniteDiff
 #include <iostream>
 #include <cmath>
+#include <RK4.cpp>
 
 // Prototipos de las funcioens que acompanan las derivadas en la ED
 double p(double);
