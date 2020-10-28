@@ -1,4 +1,4 @@
-#include "fd_method.h"  // se define la clase FiniteDiff
+#include <fd_method.h>  // se define la clase FiniteDiff
 #include <iostream>
 #include <cmath>
 

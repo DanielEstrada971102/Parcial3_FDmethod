@@ -1,7 +1,10 @@
-#include "../fd_method.h"
+#include <fd_method.h>
 #include <iostream>
 #include <fstream>
 #include <cmath>
+
+// Este codigo es para corroborar 
+// que las funciones se esten evaluando bien... 
 
 void chequear_funciones();
 double p(double x);
@@ -31,7 +34,7 @@ void chequear_funciones()
 
 	x[0] = 1;
 
-	for (int i = 1; i < 10; i++) x[i] = x[i-1] + 0.1;
+	for (int i = 1; i < 10; i++) x[i] = x[i-1] + 0.1; // se define el dominio x-->(1, 2, 0.1)
 
 	clase.setP(p);
 	clase.setQ(q);

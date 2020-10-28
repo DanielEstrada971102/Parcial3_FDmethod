@@ -1,7 +1,11 @@
-#include "../fd_method.h"
+#include <fd_method.h>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+
+// Este codigo es para corroborar que el sistetama
+// de ecuaciones matricual se esta haciendo como debe
+
 
 void  chequear_matriz();
 double p(double);
@@ -33,6 +37,7 @@ void chequear_matriz(){
 
 	clase.calcule_EqSys(x);
 
+	// aca se imprime los elementos de la matriz que la clase calculo
 	cout << "Matriz de la clase" << endl;
 	cout << "===========================================================================================" << endl;
 
@@ -51,6 +56,8 @@ void chequear_matriz(){
 	for (k = 0; k < N-2; k++) cout << left << setw(10) << "0";
 	cout << left << setw(10) << clase.C.at(N-1) << setw(15) << clase.A.at(N) << endl;
 	
+
+	// aca se hace el calculo a mano para comparar los valores 
 	cout << "===========================================================================================" << endl;
 	cout << "Matriz hecha a mano" << endl;
 	cout << "===========================================================================================" << endl;
@@ -72,6 +79,9 @@ void chequear_matriz(){
 		cout << endl;
 	}
 	cout << "===========================================================================================" << endl;
+
+
+	// se comparan tambien el b de Ax=b
 
 	cout << left << setw(15) << "vec D" << setw (15) << "a mano" <<endl;
 	cout << "================================" << endl;
@@ -98,3 +108,4 @@ double q(double x){
 double r(double x){
 	return sin(log(x)) / (x*x);	
 }
+
