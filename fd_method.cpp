@@ -48,10 +48,7 @@ void FiniteDiff::setR(double (*function)(double)){
 
 void FiniteDiff::solve(double *x, double *w){
 	calcule_EqSys(x);  // linealiza las ecuaciones en un sistema matricial N+1 x N+1
-	cout << "en solve" << endl;
-	for (int i = 0; i <= n+1; i++) cout << x[i] << endl;
 	croutFactorization(x, w);  // resuelve el sistema tridiagonal
-	for (int i = 0; i <= n+1; i++) cout << x[i] << endl;
 }
 
 void FiniteDiff::calcule_EqSys(double *x){
@@ -77,41 +74,39 @@ void FiniteDiff::calcule_EqSys(double *x){
 	x[n] = b - h;
 	A.push_back( 2  + h*h * q(x[n]));  // A[n]
 	C.push_back( -1  - 0.5 * h * p(x[n]));  // C[n-1]
-	B.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // D[n]
+	D.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // D[n]
 	x[n+1] = b;
 }
 
 
 void FiniteDiff::croutFactorization(double *x, double *w){
 	// resuelve un sistema lineal tridiagonal
-	
-	cout << "en croutFactorization" << endl;
 
 	int i;
 	double L[n+1];
 	double U[n+1];
 	double Z[n+1];
 	// ------ step 4 -----------------
-	L[1] = A[1];
-	U[1] = B[1] / A[1];	
-	Z[1] = D[1] / L[1];
+	L[1] = A.at(1);
+	U[1] = B.at(1) / A.at(1);	
+	Z[1] = D.at(1) / L[1];
 	
 	// ------ step 5 -----------------
 	for (i = 2; i <= n-1 ; i++){
-		L[i] =  A[i] - C[i] * U[i-1];
-		U[i] =  B[i] / L[i];
-		Z[i] = ( D[i] - C[i] * Z[i-1]) / L[i] ;	
+		L[i] =  A.at(i) - C.at(i-1) * U[i-1];
+		U[i] =  B.at(i) / L[i];
+		Z[i] = ( D.at(i) - C.at(i-1) * Z[i-1]) / L[i] ;	
 	}
 
 	// ------ step 6 -----------------
-	L[n] = A[n] - C[n] * U[n-1];
-	Z[n] = ( D[n] - C[n] * Z[n-1]) / L[n];
+	L[n] = A.at(n) - C.at(n-1) * U[n-1];
+	Z[n] = ( D.at(n) - C.at(n-1) * Z[n-1]) / L[n];
 	
 	// ------ step 7 -----------------
 	w[0] = alpha;
 	w[n] = Z[n];
 	w[n+1] = beta;
-	
+
 	// ------ step 8 -----------------
 	for (i = n-1; i >= 1 ; i--){
 		w[i] = Z[i] - U[i] * w[i+1];

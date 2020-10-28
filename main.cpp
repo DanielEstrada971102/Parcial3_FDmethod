@@ -16,7 +16,7 @@ int main(){
 	FiniteDiff EDproblem(N);  // Se crea un elemento de la clase FiniteDiff
 
 	EDproblem.setInterval(1.0, 2.0);  // se establece el intervalo de integracion [a, b]
-	EDproblem.setBoundaryCond(1.0, 33.0);  // se establecn las condiciones de frontera y(a), y(b)
+	EDproblem.setBoundaryCond(1.0, 2.0);  // se establecn las condiciones de frontera y(a), y(b)
 	// se pide definir las funcioens que acompanan cada derivada en la ED
 	EDproblem.setP(p);
 	EDproblem.setQ(q);

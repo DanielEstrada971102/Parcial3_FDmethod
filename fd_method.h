@@ -9,6 +9,7 @@ using namespace std;
 class FiniteDiff
 {
 	friend void chequear_funciones();
+	friend void chequear_matriz();
 
 	public:
 		FiniteDiff(int N);
