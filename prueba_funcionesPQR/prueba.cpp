@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <stdlib.h>
 
 // Este codigo es para corroborar 
 // que las funciones se esten evaluando bien... 
