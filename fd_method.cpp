@@ -48,9 +48,10 @@ void FiniteDiff::setR(double (*function)(double)){
 
 void FiniteDiff::solve(double *x, double *w){
 	calcule_EqSys(x);  // linealiza las ecuaciones en un sistema matricial N+1 x N+1
-	//cout << x[0] << endl;
-	croutFactorization(w);  // resuelve el sistema tridiagonal
-	//cout << x[0] << endl;
+	cout << "en solve" << endl;
+	for (int i = 0; i <= n+1; i++) cout << x[i] << endl;
+	croutFactorization(x, w);  // resuelve el sistema tridiagonal
+	for (int i = 0; i <= n+1; i++) cout << x[i] << endl;
 }
 
 void FiniteDiff::calcule_EqSys(double *x){
@@ -76,13 +77,16 @@ void FiniteDiff::calcule_EqSys(double *x){
 	x[n] = b - h;
 	A.push_back( 2  + h*h * q(x[n]));  // A[n]
 	C.push_back( -1  - 0.5 * h * p(x[n]));  // C[n-1]
-	D.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // D[n]
+	B.push_back( - h*h * r(x[n]) + (1 - 0.5 * h * p(x[n])) * beta );  // D[n]
 	x[n+1] = b;
 }
 
 
-void FiniteDiff::croutFactorization(double *w){
+void FiniteDiff::croutFactorization(double *x, double *w){
 	// resuelve un sistema lineal tridiagonal
+	
+	cout << "en croutFactorization" << endl;
+
 	int i;
 	double L[n+1];
 	double U[n+1];

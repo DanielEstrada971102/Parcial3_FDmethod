@@ -42,7 +42,7 @@ class FiniteDiff
 
 		void setH(void);  // define el tamano del paso
 		void calcule_EqSys(double *);  // convierte la ED en un sistema matricial
-		void croutFactorization(double *);  // resuelve el sistema matricial
+		void croutFactorization(double *, double *);  // resuelve el sistema matricial
 };
 
 #endif
