@@ -12,7 +12,7 @@
  */
 
 
-#include "../include/fd_method.h"  // libreria con la clase
+#include "fd_method.h"  // libreria con la clase
 #include <iostream>
 #include <cmath>
 #include <fstream>
