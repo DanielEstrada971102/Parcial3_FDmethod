@@ -1,14 +1,18 @@
 /*
-	Este programa resuelve la ecuacion 
-	difirencial:
+	Este programa resuelve mediante diferencias finitas 
+	la ecuacion difirencial:
 		y'' = -8y'- 16y + 4 sin(4x)
 
-	y compara ...
-
-
+	y compara este resultado con su solucion analitica.
+	Se presenta ademas el error relativo entre ambas soluciones
+	y se calcula el error rms para un intervalo de diferentes 
+	N (N+1 es el numero de particiones del intervalo de integracion).
+	Se guardan los datos en un archivo y al comparar el error rms con
+	h^2 se evidencia la dependencia lineal entre estos.
  */
 
-#include "fd_method.h"
+
+#include "../include/fd_method.h"  // libreria con la clase
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -17,8 +21,10 @@
 #include <string>
 #include <vector>
 
-#define RMS_PATH "convergencia/archivos/rms_deviation.txt"
+// ruta para guardar losr archivos
+#define RMS_PATH "convergencia/archivos/rms_deviation.txt"  
 #define SOL_PATH "convergencia/archivos/solutions_"
+
 
 //----------------------- prototipos de las funciones---------------------------
 double theoretical_sol( double );
@@ -29,6 +35,7 @@ double rms_deviation(int, double*, double*);
 void compare( int, vector<double>& );
 double error( double, double );
 //------------------------------------------------------------------------------
+
 
 int main(){
 
@@ -70,7 +77,7 @@ int main(){
 //------------------ definicion de las funciones--------------------------------
 
 double rms_deviation(int N, double* Y_exact, double* Y_num){
-	// calcula el error rms
+	// calcula el error rms para un N dado
 
 	double sum=0;
 
@@ -83,7 +90,6 @@ double rms_deviation(int N, double* Y_exact, double* Y_num){
 
 void compare( int N, vector<double>& rms){
 	// se guarda en un archivo la solucion teorica, numerica y el error
-	// se calcula tambien la desviacion rms 
 
 	//------------------- condiciones de frontera--------------------------
 	double xmin = 0, xmax = 0.5 * M_PI_4;
@@ -94,9 +100,10 @@ void compare( int N, vector<double>& rms){
 	
 	double x[N+1]; // para guardar los x 
 	double y_fdSol[N+1], y_theoretical[N+1]; // para guardar las soluciones
-
+												// numerica y analitica
 
 	//---------- archivo de salida para guardar las soluciones-------------
+	// el nombre del archivo se define en funcion de N+1 para distinguirlos
 	string file_name = SOL_PATH + to_string(N+1) + ".txt";
 	ofstream OutFIle(file_name);  
 
@@ -107,6 +114,7 @@ void compare( int N, vector<double>& rms){
 
 
 	//--- se calcula la solucion usando el metodo de diferencias finitas----
+	// para esto se llaman los elementos de la clase definida en fd_method.h
 	FDmethod.setInterval(xmin, xmax);
 	FDmethod.setBoundaryCond(ymin,ymax);
 	FDmethod.setP(p);
@@ -126,10 +134,10 @@ void compare( int N, vector<double>& rms){
 
 		y_theoretical[i] = theoretical_sol(x[i]);  // se calcula la solucion teorica
 
-		OutFIle << left << setw(15) << x[i]; 
-		OutFIle << setw(15) << y_theoretical[i];
-		OutFIle << setw(15) << y_fdSol[i];
-		OutFIle << setw(15) << error(y_theoretical[i], y_fdSol[i])<< endl;
+		OutFIle << left << setw(15) << x[i];
+		OutFIle << setw(15) << y_theoretical[i];  // solucion analitica
+		OutFIle << setw(15) << y_fdSol[i];  // solucion numerica
+		OutFIle << setw(15) << error(y_theoretical[i], y_fdSol[i])<< endl;  // error relativo
 	}
 
 
@@ -149,8 +157,9 @@ double theoretical_sol(double x){
 
 
 double error(double theoretical, double numerical){
-	// error relativo porcentual a la solucion analitica
-	return abs( theoretical - numerical);
+	// error relativo entre las soluciones
+
+	return abs( theoretical - numerical );
 }
 
 
