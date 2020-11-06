@@ -6,6 +6,7 @@ OBJ1 := $(SRC_DIR)/fd_method.cpp main.cpp
 OBJ2 := $(SRC_DIR)/fd_method.cpp prueba_funcionesPQR/prueba.cpp
 OBJ3 := $(SRC_DIR)/fd_method.cpp prueba_matriz/prueba.cpp
 OBJ4 := $(SRC_DIR)/fd_method.cpp convergencia/convergencia_test.cpp
+OBJ5 := $(SRC_DIR)/fd_method.cpp aplicacion/aplicacion.cpp
 
 CFLAGS   := -Iinclude -Wall 
 
@@ -24,5 +25,10 @@ matriz_test: $(OBJ3)
 convergencia_test: $(OBJ4)
 	$(CC) $(CFLAGS) $(OBJ4) -o convergencia_test.out
 
+
+aplicacion_fisica: $(OBJ5)
+	$(CC) $(CFLAGS) $(OBJ5) -o aplicacion.out
+
+
 clean:
-	rm *.out *.txt convergencia/archivos/*.txt convergencia/graficas/*.png
+	rm *.out *.txt convergencia/archivos/*.txt convergencia/graficas/*.png aplicacion/*txt
