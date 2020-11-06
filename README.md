@@ -26,7 +26,7 @@ Se incluye un Makefile para facilitar la compilación de cualquiera de los códi
 - make convergencia_test --> compila convergencia/convergencia_test.cpp
 - make aplicacion_fisica --> compila aplicacion/aplicacion.cpp
 
-para una compilación habitual solo deben usarse las banderas de preprocesador adecuadas, por ejemplo, si se quisiera compilar convergencia_test.cpp (estando en "/convergencia") se correría **g++ -I../include ../src/fd_method.cpp convergencia_test.cpp**.
+Para una compilación habitual solo deben usarse las banderas de preprocesador adecuadas, por ejemplo, si se quisiera compilar convergencia_test.cpp (estando en "/convergencia") se correría **g++ -I../include ../src/fd_method.cpp convergencia_test.cpp**.
 
 
 
