@@ -8,22 +8,21 @@ OBJ3 := $(SRC_DIR)/fd_method.cpp prueba_matriz/prueba.cpp
 OBJ4 := $(SRC_DIR)/fd_method.cpp convergencia/convergencia_test.cpp
 
 CFLAGS   := -Iinclude -Wall 
-EXEC := a.out
 
 $(EXEC) : $(OBJ1)
 	$(CC) $(CFLAGS) $(OBJ1) -o $(EXEC)
 
 
-function_test: $(OBJ2)
-	$(CC) $(CFLAGS) $(OBJ2) -o $(EXEC)
+functions_test: $(OBJ2)
+	$(CC) $(CFLAGS) $(OBJ2) -o function_test.out
 
 
 matriz_test: $(OBJ3)
-	$(CC) $(CFLAGS) $(OBJ3) -o $(EXEC)
+	$(CC) $(CFLAGS) $(OBJ3) -o matriz_test.out
 
 
 convergencia_test: $(OBJ4)
-	$(CC) $(CFLAGS) $(OBJ4) -o $(EXEC)
-	 
+	$(CC) $(CFLAGS) $(OBJ4) -o convergencia_test.out
+
 clean:
-	rm *.out *.txt
+	rm *.out *.txt convergencia/archivos/*.txt convergencia/graficas/*.png

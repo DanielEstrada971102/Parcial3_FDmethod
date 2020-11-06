@@ -1,6 +1,7 @@
 #include "fd_method.h"
 #include <iostream>
 
+
 FiniteDiff::FiniteDiff(int N){
 	n = N;
 	setH();
@@ -13,10 +14,12 @@ FiniteDiff::FiniteDiff(int N){
 	D.push_back(0);
 }
 
+
 void FiniteDiff::setH(){
 	// Se define el tamano del paso
 	h = double ((b - a) / (n + 1));
 }
+
 
 void FiniteDiff::setInterval(double xmin, double xmax){
 	// intervalo de integracion
@@ -25,31 +28,42 @@ void FiniteDiff::setInterval(double xmin, double xmax){
 	setH();
 }
 
+
 void FiniteDiff::setBoundaryCond(double ymin, double ymax){
 	// condiciones de frontera
 	alpha = ymin;
 	beta = ymax;
 }
 
+
 void FiniteDiff::setP(double (*function)(double)){
 	// funcion que acompana la primera derivada en la ED
 	p = function;
 }
+
 
 void FiniteDiff::setQ(double (*function)(double)){
 	// funcion que acompana la derivada de orden cero en la ED
 	q = function;
 }
 
+
 void FiniteDiff::setR(double (*function)(double)){
 	// funcion que no va a acompanada de y en la ED
 	r = function;
 }
 
+
 void FiniteDiff::solve(double *x, double *w){
+	/*funcion que aplica las dos parte del algoritmo
+	para soluciona la ED, el usuario debe pasar
+	los arreglos x y w de tamaño n+1.
+	*/
+
 	calcule_EqSys(x);  // linealiza las ecuaciones en un sistema matricial N+1 x N+1
 	croutFactorization(x, w);  // resuelve el sistema tridiagonal
 }
+
 
 void FiniteDiff::calcule_EqSys(double *x){
 	// funcion que crea los elementos de matriz linealizando el problema

@@ -1,7 +1,20 @@
+/*
+	Este codigo es una prueba del funcionamiento
+	de la clase, aca se testea la correspondencia
+	de los valores calculados al resolver la ED
+
+ 	y'' = -2/x y' + 2/x^2 y + sin(ln(x))/x^2
+
+	con los numeros que se presentan en la tabla
+	11.3 del libro guia.
+
+ */
+
+
+
 #include <fd_method.h>  // se define la clase FiniteDiff
 #include <iostream>
 #include <cmath>
-//#include <RK4.cpp>
 
 // Prototipos de las funcioens que acompanan las derivadas en la ED
 double p(double);

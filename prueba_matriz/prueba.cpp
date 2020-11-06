@@ -4,7 +4,7 @@
 #include <cmath>
 
 // Este codigo es para corroborar que el sistetama
-// de ecuaciones matricual se esta haciendo como debe
+// de ecuaciones matricial se esta haciendo como debe
 
 
 void  chequear_matriz();
