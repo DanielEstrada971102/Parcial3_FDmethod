@@ -4,13 +4,31 @@
 
 En este repositorio se encuentran los códigos utilizados para el dasarrollo del tercer parcial del curso de física computacional II. Se desarrolla el método de solución numérica de ecuaciones diferenciales presentado en la sección 11.3 del libro *Numerical Analysis - R.Burden*, **Diferencias Finitas para problemas lineales**.
 
-## Compilación
-Para compilar cualquiera de los módulos del código se debe situar sus archivo .cpp y .h en la misma carpeta donde esten los archivos df_method.cpp y df_method.h que es donde está definida la clase. 
-Para usar la parte de testeo hay que abrir la terminal en la carpeta **convergencia** y compilar el archivo **convergencia_test.cpp** junto con **df_method.cpp**.
-Para usar... (poner como se compila lo de prueba)
-
 ## Uso
-En la carpeta **include** se encuentra el archivo **fd_method.h**, en este se declara la clase, sus atributos y métodos. La clase requiere que se definan las condiciones de frontera, el intervalo de integración y el tamaño de puntos en lo que se dividirá el intervalo N+1. Los arreglos que se le pasan a la clase deben de ser de tamaño N+1 y además se deben definir las funciones que acompañan cada derivada de la ecuación diferencial como funciones y pasárselas a la clase.
-En el archivo **convergencia_test.cpp** se calcula la desviación rms del método para un intervalo de N's, este intervalo se debe establecer directamente en el ciclo for de la funcion main.
+El algortimo se implementa mediante la clase **FiniteDiff**, la cual, esta declara en en "include/fd_method.h" y cuya interfaz se encuentra en "src/fd_method.cpp". Para calcular la solución numerica de una ED con esta clase es necesario crear una instanca de esta misma y definir mediante los métodos *setter*: las condiciones de frontera, el intervalo de integración, el tamaño de puntos en lo que se dividirá el intervalo N+1 y la forma funcional de los coeficientes de la ED. Una vez se establescas estos parametros, se toman dos arreglos de tamaño N+1 y se pasan como argumento al método **solve**, este retornara los valores x_i, y_i de la solución numerica.
+
+## Códigos
+
+**main.cpp:** En este código se prueba el correcto funcionamiento del algoritmo imprimiendo en pantalla los valores solución de la ecuación defirencial del ejemplo 1 del libro guía y comparandolos con la tabla 11.3 del mismo. 
+
+**prueba_matriz/prueba.cpp y prueba_funcinesPQR/prueba.cpp:** Este par de códigos se utilizo para chequear que los elementos matriciales del sistema de ecuaciones lineales a resolver y las funciones que representan los coeficientes de la ED se estuvieran evaluando correctamente.
+
+**convergencia/convergencia_test.cpp:** Es este código se soluciona la ED y'' = -8y'-16y+ 4sin(4x) sujeta a las condiciones y(0) = 0 = y(pi/8). La solución numerica se compara con la solucion analitica y con ello se calcula el error y la desviación rms para distintos N, los cuales, se pueden establecer directamente en el ciclo for de la funcion main. 
+
+**aplicacion/aplicacion.cpp:** En este código se calcula la solución numerica al problema de la deflexión de una viga. 
+
+## Compilación
+Se incluye un Makefile para facilitar la compilación de cualquiera de los códigos utilizando las banderas de preprocesador necesarias, se puede usar alguno de los siguientes comandos para compilar:
+
+- make --> compila main.cpp
+- make matriz_test --> compila prueba_matriz/prueba.cpp
+- make functions_test --> compila prueba_funcionesPQR/prueba.cpp
+- make convergencia_test --> compila convergencia/convergencia_test.cpp
+- make aplicacion_fisica --> compila aplicacion/aplicacion.cpp
+
+para una compilación habitual solo deben usarse las banderas de preprocesador adecuadas, por ejemplo, si se quisiera compilar convergencia_test.cpp (estando en "/convergencia") se correría **g++ -I../include ../src/fd_method.cpp convergencia_test.cpp**.
+
+
+
 
 
